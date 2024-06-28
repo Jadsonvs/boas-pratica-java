@@ -18,8 +18,8 @@ import static org.mockito.Mockito.when;
 public class AbrigoServiceTest {
 
     private ClientHttpConfiguration client = mock(ClientHttpConfiguration.class);
-    private AbrigoService abrigoService = new AbrigoService(client);
     private HttpResponse<String> response = mock(HttpResponse.class);
+    private AbrigoService abrigoService = new AbrigoService(client);
     private Abrigo abrigo = new Abrigo("Teste", "123456789", "abrigo_alura@gmail.com");
 
     @Test
