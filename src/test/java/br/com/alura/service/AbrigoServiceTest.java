@@ -23,7 +23,7 @@ public class AbrigoServiceTest {
     private Abrigo abrigo = new Abrigo("Teste", "123456789", "abrigo_alura@gmail.com");
 
     @Test
-    public void deveVerificarSeDisparaRequisicaoGetSeraChamado() throws IOException, InterruptedException {
+    public void deveVerificarQuandoHaAbrigo() throws IOException, InterruptedException {
         abrigo.setId(0L);
         String expectedAbrigoCadastrados = "Abrigos cadastrados:";
         String expectedIdNome = "0 - Teste";
@@ -43,5 +43,25 @@ public class AbrigoServiceTest {
 
         assertEquals(expectedAbrigoCadastrados, actualAbrigosCadastros);
         assertEquals(expectedIdNome, actualIdNome);
+    }
+
+    @Test
+    public void deveVerificarQuandoNaoHaAbrigo() throws IOException, InterruptedException {
+        abrigo.setId(0L);
+        String expected = "Não há abrigos cadastrados";
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(baos);
+        System.setOut(printStream);
+
+        when(response.body()).thenReturn("[]");
+        when(client.dispararRequisicaoGet(anyString())).thenReturn(response);
+
+        abrigoService.listarAbrigos();
+
+        String[] lines = baos.toString().split(System.lineSeparator());
+        String actual = lines[0];
+
+        assertEquals(expected, actual);
     }
 }
