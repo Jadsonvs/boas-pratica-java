@@ -1,6 +1,4 @@
-package br.com.alura.service;
-
-import br.com.alura.Command;
+package br.com.alura;
 
 public class CommandExecutor {
 
